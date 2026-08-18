@@ -1,12 +1,12 @@
-The main goal of TalentBridge is to allow:
+**The main goal of TalentBridge is to allow:**
 
-Students to create professional profiles, upload resumes, search for jobs/internships, and apply to opportunities.
-Recruiters to create company profiles, post jobs, view applicants, and shortlist candidates.
-Admins to manage students, recruiters, and the overall platform.
+**Students to create professional profiles, upload resumes, search for jobs/internships, and apply to opportunities.**
+**Recruiters to create company profiles, post jobs, view applicants, and shortlist candidates.**
+**Admins to manage students, recruiters, and the overall platform.**
 
-👨‍🎓 Student Side
+**👨‍🎓 Student Side**
 
-Students will be able to:
+**Students will be able to:**
 
 Register and log in
 Create and edit their profile
@@ -18,9 +18,9 @@ Apply for jobs
 Select which resume to use while applying
 Track application status
 
-🏢 Recruiter Side
+**🏢 Recruiter Side**
 
-Recruiters will be able to:
+**Recruiters will be able to:**
 
 Register and log in
 Create a company profile
@@ -30,23 +30,23 @@ View applicants
 View candidate information
 Shortlist candidates
 
-🛠️ Admin Side
+**🛠️ Admin Side**
 
-Admins will be responsible for:
+**Admins will be responsible for:**
 
 Managing students
 Managing recruiters
 Managing the overall platform
 
-🏗️ Technology Stack
+**🏗️ Technology Stack**
 
-Frontend
+**Frontend**
 React,Tailwind CSS,Axios,React Router.
 
-Backend
+**Backend**
 Java,Spring Boot,Spring Security,JWT Authentication,JPA / Hibernate.
 
-Database
+**Database**
 PostgreSQL
 
 Development Tools
