@@ -39,6 +39,7 @@ Managing recruiters
 Managing the overall platform
 
 🏗️ Technology Stack
+
 Frontend
 React,Tailwind CSS,Axios,React Router.
 
