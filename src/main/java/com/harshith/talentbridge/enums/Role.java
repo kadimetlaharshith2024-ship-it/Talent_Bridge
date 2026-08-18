@@ -1,4 +1,5 @@
 package com.harshith.talentbridge.enums;
 
-public class Role {
+public enum Role {
+    ADMIN,STUDENT,RECRUITER
 }

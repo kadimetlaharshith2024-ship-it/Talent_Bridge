@@ -1,4 +1,5 @@
 package com.harshith.talentbridge.enums;
 
-public class JobStatus {
+public enum JobStatus {
+    OPEN,CLOSE
 }

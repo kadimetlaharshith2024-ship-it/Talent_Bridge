@@ -1,4 +1,7 @@
 package com.harshith.talentbridge.enums;
 
-public class InterviewStatus {
+public enum InterviewStatus {
+    SCHEDULED,
+    COMPLETED,
+    CANCELED
 }

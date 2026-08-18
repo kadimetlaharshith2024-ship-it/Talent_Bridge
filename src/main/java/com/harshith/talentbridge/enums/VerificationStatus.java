@@ -1,4 +1,5 @@
 package com.harshith.talentbridge.enums;
 
-public class VerificationStatus {
+public enum VerificationStatus {
+    PENDING,APPROVED,REJECTED
 }

@@ -1,4 +1,7 @@
 package com.harshith.talentbridge.enums;
 
-public class JobType {
+public enum JobType {
+    INTERNSHIP,
+    PART_TIME,
+    FULL_FIME
 }
