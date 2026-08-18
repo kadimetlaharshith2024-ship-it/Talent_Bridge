@@ -1,6 +1,6 @@
 **Yes.** In fact, this is very close to how many professional backend-first teams build applications.
 
-Here's the roadmap I recommend for **TalentBridge**.
+Here's the roadmap I recommend for **TalentBridge**
 
 # Phase 1: Project Setup
 
