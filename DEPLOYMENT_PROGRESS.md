@@ -22,15 +22,14 @@ Here's the roadmap I recommend for **TalentBridge**
 ✅ UserRepository
 ✅ DTOs (RegisterRequest, LoginRequest, LoginResponse)
 ✅ BCrypt Password Encoder
-✅ JWT Utility (JwtUtil created, Maven dependencies resolved, fully understood)----------------18-08-2026---------------
-✅ CustomUserDetailsService (Bridge connecting PostgreSQL User with Spring Security) 
+✅ JWT Utility (JwtUtil created, Maven dependencies resolved, fully understood)
+✅ CustomUserDetailsService (Bridge connecting PostgreSQL User with Spring Security)
 ✅ JwtAuthenticationFilter (Header interceptor & token validator)
-✅ UserService (Registration logic ready)
-✅ UserController (Register endpoint ready)----------------18-08-2026------------------
-⬜ Spring Security (Update SecurityConfig to wire the filter and configure filter chain)
-⬜ Register API (Verify endpoint via Postman)
-⬜ Login API (Add login() to UserService and UserController)
-⬜ Test in Postman (Register + Login end-to-end test)
+✅ UserService (Registration logic + Login logic implemented) ----------------- 19-08-2026 ✅
+✅ UserController (Register endpoint + Login endpoint implemented) ------------ 19-08-2026 ✅
+✅ Spring Security (SecurityConfig updated with stateless filter chain) -------- 19-08-2026 ✅
+✅ Login API (Service & Controller code completed) ---------------------------- 19-08-2026 ✅
+⬜ Test in Postman (Register + Login end-to-end runtime verification)
 ```
 
 **Milestone:**
