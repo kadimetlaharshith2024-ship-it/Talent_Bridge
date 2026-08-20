@@ -1,4 +1,4 @@
-package com.harshith.talentbridge.security;
+package com.harshith.talentbridge.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

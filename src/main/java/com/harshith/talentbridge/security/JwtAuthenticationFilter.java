@@ -1,5 +1,6 @@
 package com.harshith.talentbridge.security;
 
+import com.harshith.talentbridge.config.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

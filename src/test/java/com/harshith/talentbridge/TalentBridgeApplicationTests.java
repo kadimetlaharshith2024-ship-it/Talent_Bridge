@@ -9,5 +9,4 @@ class TalentBridgeApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
