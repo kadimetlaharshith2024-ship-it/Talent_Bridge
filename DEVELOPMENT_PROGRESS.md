@@ -29,7 +29,7 @@ Here's the roadmap I recommend for **TalentBridge**
 ✅ UserController (Register endpoint + Login endpoint implemented) ------------ 19-08-2026 ✅
 ✅ Spring Security (SecurityConfig updated with stateless filter chain) -------- 19-08-2026 ✅
 ✅ Login API (Service & Controller code completed) ---------------------------- 19-08-2026 ✅
-⬜ Test in Postman (Register + Login end-to-end runtime verification)
+✅Test in Postman (Register + Login end-to-end runtime verification)
 ```
 
 **Milestone:**
@@ -43,8 +43,8 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 3: Student Module
 
 ```text
-⬜ StudentProfile Entity
-⬜ StudentRepository
+✅ StudentProfile Entity
+✅ StudentRepository
 ⬜ StudentService
 ⬜ StudentController
 ⬜ Create Profile
