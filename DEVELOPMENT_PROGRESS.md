@@ -43,8 +43,8 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 3: Student Module
 
 ```text
-⬜ StudentProfile Entity
-⬜ StudentRepository
+✅ StudentProfile Entity
+✅ StudentRepository
 ⬜ StudentService
 ⬜ StudentController
 ⬜ Create Profile
