@@ -45,7 +45,7 @@ Here's the roadmap I recommend for **TalentBridge**
 ```text
 ✅ StudentProfile Entity
 ✅ StudentRepository
-⬜ StudentService
+✅ StudentService
 ⬜ StudentController
 ⬜ Create Profile
 ⬜ Update Profile
