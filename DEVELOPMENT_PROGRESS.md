@@ -60,14 +60,14 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 4: Recruiter Module
 
 ```text
-⬜ RecruiterProfile Entity
-⬜ RecruiterRepository
-⬜ RecruiterService
-⬜ RecruiterController
-⬜ Create Company Profile
-⬜ Edit Profile
-⬜ View Profile
-⬜ Test in Postman
+✅ RecruiterProfile Entity
+✅ RecruiterRepository
+✅ RecruiterService
+✅ RecruiterController
+✅ Create Company Profile
+✅ Edit Profile
+✅ View Profile
+✅ Test in Postman
 ```
 
 ---
