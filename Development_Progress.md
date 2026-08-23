@@ -45,14 +45,15 @@ Here's the roadmap I recommend for **TalentBridge**
 ```text
 ✅ StudentProfile Entity
 ✅ StudentRepository
-⬜ StudentService
-⬜ StudentController
-⬜ Create Profile
-⬜ Update Profile
-⬜ View Profile
-⬜ Upload Resume (metadata)
-⬜ Test in Postman
+✅ StudentService
+✅ StudentController
+✅ Create Profile
+✅ Update Profile
+✅ View Profile
+✅ Update Every Variable Seperatly in profile (metadata)
+✅ Test in Postman
 ```
+
 
 ---
 

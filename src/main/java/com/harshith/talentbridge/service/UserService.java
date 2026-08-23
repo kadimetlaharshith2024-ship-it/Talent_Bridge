@@ -5,7 +5,7 @@ import com.harshith.talentbridge.dto.LoginResponse;
 import com.harshith.talentbridge.dto.RegisterRequest;
 import com.harshith.talentbridge.entity.User;
 import com.harshith.talentbridge.repository.UserRepository;
-import com.harshith.talentbridge.security.JwtUtil;
+import com.harshith.talentbridge.config.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
