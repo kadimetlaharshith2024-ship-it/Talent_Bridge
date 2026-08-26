@@ -110,13 +110,13 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 7: Resume Module
 
 ```text
-⬜ Resume Entity
-⬜ Upload Resume
-⬜ Download Resume
-⬜ Version 1
-⬜ Version 2
-⬜ Version 3
-⬜ Recruiter Resume View
+✅ Resume Entity
+✅ Upload Resume
+✅ Download Resume
+✅ Version 1
+✅ Version 2
+✅ Version 3
+✅ Recruiter Resume View
 ```
 
 ---
