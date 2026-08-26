@@ -75,16 +75,16 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 5: Job Module
 
 ```text
-⬜ Job Entity
-⬜ JobRepository
-⬜ JobService
-⬜ JobController
-⬜ Post Job
-⬜ Edit Job
-⬜ Delete Job
-⬜ Search Jobs
-⬜ View Job Details
-⬜ Test in Postman
+✅ Job Entity
+✅ JobRepository
+✅ JobService
+✅ JobController
+✅ Post Job
+✅ Edit Job
+✅ Delete Job
+✅ Search Jobs
+✅ View Job Details
+✅ Test in Postman
 ```
 
 ---
