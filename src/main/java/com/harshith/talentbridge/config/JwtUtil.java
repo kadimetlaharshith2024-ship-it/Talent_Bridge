@@ -3,11 +3,11 @@ package com.harshith.talentbridge.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,9 +23,9 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
-    // 1. Generate Signing Key from base64 string
+    // 1. Generate Signing Key from UTF-8 bytes (minimum 256 bits)
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -37,19 +37,23 @@ public class JwtUtil {
     // 3. Extract Single Claim using resolver function
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+        return claims != null ? claimsResolver.apply(claims) : null;
     }
 
     // 4. Extract all Claims (Payload)
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    // 5. Generate Token for User with Custom Claims (Role, ID)
+    // 5. Generate Token for User with Custom Claims (Role)
     public String generateToken(String email, String role) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", role);
@@ -68,7 +72,8 @@ public class JwtUtil {
 
     // 6. Check if Token is Expired
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        Date exp = extractExpiration(token);
+        return exp != null && exp.before(new Date());
     }
 
     public Date extractExpiration(String token) {
@@ -78,6 +83,6 @@ public class JwtUtil {
     // 7. Validate Token against User details
     public boolean validateToken(String token, String userEmail) {
         final String extractedEmail = extractUsername(token);
-        return (extractedEmail.equals(userEmail) && !isTokenExpired(token));
+        return (extractedEmail != null && extractedEmail.equals(userEmail) && !isTokenExpired(token));
     }
 }

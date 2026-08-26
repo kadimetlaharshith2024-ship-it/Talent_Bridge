@@ -172,7 +172,7 @@ public class RecruiterService {
         return (str != null) ? str.trim() : null;
     }
 
-    private RecruiterProfileResponse mapToResponse(RecruiterProfile profile) {
+    public RecruiterProfileResponse mapToResponse(RecruiterProfile profile) {
         return RecruiterProfileResponse.builder()
                 .id(profile.getId())
                 .userId(profile.getUser().getId())

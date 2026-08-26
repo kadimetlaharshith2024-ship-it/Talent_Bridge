@@ -49,6 +49,9 @@ public class Job {
     @Column(name = "salary_max")
     private Double salaryMax;
 
+    @Column(name = "min_cgpa")
+    private Double minCgpa;
+
     @Column(name = "experience_required")
     private String experienceRequired;
 
@@ -60,7 +63,7 @@ public class Job {
 
     @Column(name = "openings")
     @Builder.Default
-    private Integer openings = 10;
+    private Integer openings = 1;
 
     @Column(name = "application_deadline")
     private LocalDate applicationDeadline;
@@ -76,4 +79,7 @@ public class Job {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Application> applications = new ArrayList<>();
 }

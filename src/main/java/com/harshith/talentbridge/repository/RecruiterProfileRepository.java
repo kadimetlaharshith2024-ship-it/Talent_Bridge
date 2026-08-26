@@ -10,13 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface RecruiterRepository extends JpaRepository<RecruiterProfile, Long> {
-
+public interface RecruiterProfileRepository extends JpaRepository<RecruiterProfile, Long> {
     Optional<RecruiterProfile> findByUser(User user);
-
-    Optional<RecruiterProfile> findByUserEmail(String email);
-
     List<RecruiterProfile> findByVerificationStatus(VerificationStatus verificationStatus);
-
     long countByVerificationStatus(VerificationStatus verificationStatus);
 }

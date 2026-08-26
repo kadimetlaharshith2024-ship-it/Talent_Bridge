@@ -14,19 +14,17 @@ import java.util.List;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
 
-    // Find all jobs posted by a specific recruiter
     List<Job> findByRecruiter(RecruiterProfile recruiter);
 
-    // Find all active/open jobs
-    List<Job> findByStatus(JobStatus status);
+    long countByStatus(JobStatus status);
 
-    // Advanced search & filter query for students
     @Query("SELECT j FROM Job j WHERE " +
             "(:status IS NULL OR j.status = :status) AND " +
             "(:jobType IS NULL OR j.jobType = :jobType) AND " +
-            "(:keyword IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
-            "OR LOWER(j.description) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
-            "OR LOWER(j.location) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+            "(:keyword IS NULL OR " +
+            "LOWER(j.title) LIKE LOWER(CONCAT('%', CAST(:keyword AS string), '%')) OR " +
+            "LOWER(j.description) LIKE LOWER(CONCAT('%', CAST(:keyword AS string), '%')) OR " +
+            "LOWER(j.location) LIKE LOWER(CONCAT('%', CAST(:keyword AS string), '%')))")
     List<Job> searchJobs(
             @Param("keyword") String keyword,
             @Param("jobType") JobType jobType,

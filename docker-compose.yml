@@ -1,0 +1,44 @@
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: talentbridge-db
+    restart: always
+    environment:
+      POSTGRES_DB: talentbridge
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - talentbridge-network
+
+  backend-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: talentbridge-backend
+    restart: always
+    depends_on:
+      - postgres-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/talentbridge
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgrespassword
+      JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      JWT_EXPIRATION: 86400000
+      ADMIN_EMAIL: harshith.reddy@talentbridge.io
+      ADMIN_PASSWORD: Admin@12345
+      ADMIN_NAME: Harshith Reddy (Master Admin)
+    ports:
+      - "8080:8080"
+    networks:
+      - talentbridge-network
+
+volumes:
+  postgres_data:
+
+networks:
+  talentbridge-network:
+    driver: bridge
