@@ -75,16 +75,16 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 5: Job Module
 
 ```text
-⬜ Job Entity
-⬜ JobRepository
-⬜ JobService
-⬜ JobController
-⬜ Post Job
-⬜ Edit Job
-⬜ Delete Job
-⬜ Search Jobs
-⬜ View Job Details
-⬜ Test in Postman
+✅ Job Entity
+✅ JobRepository
+✅ JobService
+✅ JobController
+✅ Post Job
+✅ Edit Job
+✅ Delete Job
+✅ Search Jobs
+✅ View Job Details
+✅ Test in Postman
 ```
 
 ---
@@ -92,17 +92,17 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 6: Application Module
 
 ```text
-⬜ Application Entity
-⬜ ApplicationRepository
-⬜ ApplicationService
-⬜ ApplicationController
-⬜ Apply for Job
-⬜ Withdraw Application
-⬜ Track Status
-⬜ Recruiter View Applicants
-⬜ Shortlist
-⬜ Reject
-⬜ Test in Postman
+✅ Application Entity
+✅ ApplicationRepository
+✅ ApplicationService
+✅ ApplicationController
+✅ Apply for Job
+✅ Withdraw Application
+✅ Track Status
+✅ Recruiter View Applicants
+✅ Shortlist
+✅ Reject
+✅ Test in Postman
 ```
 
 ---
@@ -110,13 +110,13 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 7: Resume Module
 
 ```text
-⬜ Resume Entity
-⬜ Upload Resume
-⬜ Download Resume
-⬜ Version 1
-⬜ Version 2
-⬜ Version 3
-⬜ Recruiter Resume View
+✅ Resume Entity
+✅ Upload Resume
+✅ Download Resume
+✅ Version 1
+✅ Version 2
+✅ Version 3
+✅ Recruiter Resume View
 ```
 
 ---
