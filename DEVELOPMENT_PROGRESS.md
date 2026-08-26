@@ -92,17 +92,17 @@ Here's the roadmap I recommend for **TalentBridge**
 # Phase 6: Application Module
 
 ```text
-⬜ Application Entity
-⬜ ApplicationRepository
-⬜ ApplicationService
-⬜ ApplicationController
-⬜ Apply for Job
-⬜ Withdraw Application
-⬜ Track Status
-⬜ Recruiter View Applicants
-⬜ Shortlist
-⬜ Reject
-⬜ Test in Postman
+✅ Application Entity
+✅ ApplicationRepository
+✅ ApplicationService
+✅ ApplicationController
+✅ Apply for Job
+✅ Withdraw Application
+✅ Track Status
+✅ Recruiter View Applicants
+✅ Shortlist
+✅ Reject
+✅ Test in Postman
 ```
 
 ---
