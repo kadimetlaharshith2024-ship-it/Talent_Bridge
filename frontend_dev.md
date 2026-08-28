@@ -278,7 +278,7 @@ Then STOP.
 Never automatically proceed to another task.
 
 START WITH TASK 1 ONLY.
-🟩 PHASE 2 — STUDENT EXPERIENCE
+*🟩 PHASE 2 — STUDENT EXPERIENCE*
 TALENTBRIDGE — PHASE 2: STUDENT EXPERIENCE
 
 Phase 1 frontend foundation has been completed.
@@ -569,7 +569,7 @@ After each task:
 Then STOP.
 
 START WITH TASK 1 ONLY.
-🟪 PHASE 3 — RECRUITER EXPERIENCE
+*🟪 PHASE 3 — RECRUITER EXPERIENCE*
 TALENTBRIDGE — PHASE 3: RECRUITER EXPERIENCE
 
 Now improve the RECRUITER side of TalentBridge.
@@ -817,7 +817,7 @@ After each task:
 Then STOP.
 
 START WITH TASK 1 ONLY.
-🟥 PHASE 4 — ADMIN EXPERIENCE
+*🟥 PHASE 4 — ADMIN EXPERIENCE*
 TALENTBRIDGE — PHASE 4: ADMIN EXPERIENCE
 
 Now improve the ADMIN side of TalentBridge.
@@ -1018,7 +1018,7 @@ After every task provide:
 Then STOP.
 
 START WITH TASK 1 ONLY.
-🟨 PHASE 5 — AUTHENTICATION + SECURITY UX
+*🟨 PHASE 5 — AUTHENTICATION + SECURITY UX*
 TALENTBRIDGE — PHASE 5: AUTHENTICATION & SECURITY UX
 
 Now improve the authentication and authorization experience of TalentBridge.
