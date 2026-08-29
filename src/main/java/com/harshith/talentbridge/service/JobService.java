@@ -8,6 +8,7 @@ import com.harshith.talentbridge.entity.StudentProfile;
 import com.harshith.talentbridge.entity.User;
 import com.harshith.talentbridge.enums.JobStatus;
 import com.harshith.talentbridge.enums.JobType;
+import com.harshith.talentbridge.repository.ApplicationRepository;
 import com.harshith.talentbridge.repository.JobRepository;
 import com.harshith.talentbridge.repository.RecruiterRepository;
 import com.harshith.talentbridge.repository.StudentRepository;
@@ -29,6 +30,7 @@ public class JobService {
     private final RecruiterRepository recruiterRepository;
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
+    private final ApplicationRepository applicationRepository;
 
     @Transactional
     public JobResponse postJob(String email, JobRequest request) {
@@ -58,6 +60,7 @@ public class JobService {
         RecruiterProfile recruiter = getRecruiterByEmail(email);
         return jobRepository.findByRecruiter(recruiter)
                 .stream()
+                .filter(job -> job.getStatus() != JobStatus.CLOSED)
                 .map(this::mapToResponse)
                 .toList();
     }
@@ -162,9 +165,13 @@ public class JobService {
     public JobResponse deleteJob(String email, Long jobId) {
         Job job = getJobAndValidateOwnership(email, jobId);
 
-        // Soft delete: Mark the status as CLOSED so dependent applications are preserved
-        job.setStatus(JobStatus.CLOSED);
-        return mapToResponse(jobRepository.save(job));
+        // 1. Delete associated applications to avoid foreign key errors
+        applicationRepository.deleteByJob(job);
+
+        // 2. Permanently remove the job entity
+        jobRepository.delete(job);
+
+        return mapToResponse(job);
     }
 
     private RecruiterProfile getRecruiterByEmail(String email) {

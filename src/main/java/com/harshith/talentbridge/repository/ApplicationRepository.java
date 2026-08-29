@@ -5,7 +5,11 @@ import com.harshith.talentbridge.entity.Job;
 import com.harshith.talentbridge.entity.StudentProfile;
 import com.harshith.talentbridge.enums.ApplicationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +26,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     List<Application> findByJobOrderByAppliedAtDesc(Job job);
 
     List<Application> findByJobAndStatusOrderByAppliedAtDesc(Job job, ApplicationStatus status);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Application a WHERE a.job = :job")
+    void deleteByJob(@Param("job") Job job);
 }
