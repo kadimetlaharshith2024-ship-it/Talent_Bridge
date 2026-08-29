@@ -31,3 +31,26 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Environment & Credentials ###
+**/src/main/resources/application.properties
+**/src/main/resources/application-*.properties
+**/src/main/resources/application.yml
+**/src/main/resources/application-*.yml
+*.env
+
+# User uploaded documents / PII
+uploads/
+uploads/resumes/
+*.pdf
+*.docx
+
+# Postman local session environments
+.postman/
+postman/
+postman/globals/
+
+# IDE and OS files
+.idea/
+.DS_Store
+Thumbs.db

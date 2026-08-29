@@ -45,6 +45,15 @@ public class Application {
     @Column(length = 500)
     private String recruiterFeedback;
 
+    // Interview specific scheduling fields
+    private LocalDateTime interviewTime;
+
+    @Column(length = 255)
+    private String interviewLink;
+
+    @Column(length = 255)
+    private String interviewRound;
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime appliedAt;

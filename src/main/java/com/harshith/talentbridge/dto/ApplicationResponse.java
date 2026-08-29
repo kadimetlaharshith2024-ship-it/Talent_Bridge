@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ApplicationResponse {
     private Long id;
-
-    // Student Details
     private Long studentId;
     private String studentName;
     private String studentEmail;
@@ -25,7 +23,6 @@ public class ApplicationResponse {
     private Double studentCgpa;
     private String studentSkills;
 
-    // Job Details
     private Long jobId;
     private String jobTitle;
     private String companyName;
@@ -33,11 +30,16 @@ public class ApplicationResponse {
     private JobType jobType;
     private Double minCgpaRequired;
 
-    // Application Specifics
     private ApplicationStatus status;
     private String coverLetter;
     private String resumeUrl;
     private String recruiterFeedback;
+
+    // Interview fields
+    private LocalDateTime interviewTime;
+    private String interviewLink;
+    private String interviewRound;
+
     private LocalDateTime appliedAt;
     private LocalDateTime updatedAt;
 }

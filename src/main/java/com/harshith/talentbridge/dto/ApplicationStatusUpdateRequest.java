@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,4 +17,7 @@ public class ApplicationStatusUpdateRequest {
     @NotNull(message = "Status is required")
     private ApplicationStatus status;
     private String recruiterFeedback;
+    private LocalDateTime interviewTime;
+    private String interviewLink;
+    private String interviewRound;
 }

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class ApplicationService {
     private final JobRepository jobRepository;
     private final StudentRepository studentRepository;
     private final RecruiterRepository recruiterRepository;
+    private final EmailService emailService; // <-- Injected Email Service
 
     @Transactional
     public ApplicationResponse applyForJob(String studentEmail, Long jobId, ApplicationRequest request) {
@@ -37,7 +39,11 @@ public class ApplicationService {
                 .orElseThrow(() -> new RuntimeException("Job not found with ID: " + jobId));
 
         if (job.getStatus() != JobStatus.OPEN && job.getStatus() != JobStatus.ACTIVE) {
-            throw new RuntimeException("Cannot apply: This job is closed.");
+            throw new RuntimeException("Cannot apply: This job posting is closed.");
+        }
+
+        if (job.getApplicationDeadline() != null && job.getApplicationDeadline().isBefore(LocalDate.now())) {
+            throw new RuntimeException("Cannot apply: The deadline for this job posting has expired.");
         }
 
         if (applicationRepository.existsByStudentAndJob(student, job)) {
@@ -57,14 +63,12 @@ public class ApplicationService {
                 ? request.getResumeUrl().trim()
                 : student.getResumeUrl();
 
-        String coverLetter = (request != null) ? request.getCoverLetter() : null;
-
         Application application = Application.builder()
                 .student(student)
                 .job(job)
                 .status(ApplicationStatus.APPLIED)
                 .resumeUrl(resume)
-                .coverLetter(coverLetter)
+                .coverLetter(request != null ? request.getCoverLetter() : null)
                 .build();
 
         return mapToResponse(applicationRepository.save(application));
@@ -120,11 +124,37 @@ public class ApplicationService {
         validateRecruiterJobOwnership(recruiterEmail, application.getJob().getId());
 
         application.setStatus(request.getStatus());
-        if (request.getRecruiterFeedback() != null) {
-            application.setRecruiterFeedback(request.getRecruiterFeedback().trim());
-        }
 
-        return mapToResponse(applicationRepository.save(application));
+        if (request.getStatus() == ApplicationStatus.REJECTED) {
+            application.setRecruiterFeedback(request.getRecruiterFeedback() != null ? request.getRecruiterFeedback().trim() : "Profile not aligned with current requirements.");
+            application.setInterviewTime(null);
+            application.setInterviewLink(null);
+            application.setInterviewRound(null);
+
+            Application saved = applicationRepository.save(application);
+            emailService.sendRejectionEmail(saved); // <-- Trigger Rejection Email
+            return mapToResponse(saved);
+        }
+        else if (request.getStatus() == ApplicationStatus.INTERVIEW_SCHEDULED) {
+            application.setInterviewTime(request.getInterviewTime());
+            application.setInterviewLink(request.getInterviewLink());
+            application.setInterviewRound(request.getInterviewRound() != null ? request.getInterviewRound().trim() : "Technical Round 1");
+            application.setRecruiterFeedback(request.getRecruiterFeedback());
+
+            Application saved = applicationRepository.save(application);
+            emailService.sendInterviewScheduledEmail(saved); // <-- Trigger Interview Email
+            return mapToResponse(saved);
+        }
+        else if (request.getStatus() == ApplicationStatus.SHORTLISTED) {
+            application.setRecruiterFeedback(request.getRecruiterFeedback());
+            Application saved = applicationRepository.save(application);
+            emailService.sendShortlistEmail(saved); // <-- Trigger Shortlist Email
+            return mapToResponse(saved);
+        }
+        else {
+            application.setRecruiterFeedback(request.getRecruiterFeedback());
+            return mapToResponse(applicationRepository.save(application));
+        }
     }
 
     private void validateRecruiterJobOwnership(String recruiterEmail, Long jobId) {
@@ -145,23 +175,26 @@ public class ApplicationService {
 
         return ApplicationResponse.builder()
                 .id(application.getId())
-                .studentId(student.getId())
-                .studentName(student.getUser().getName())
-                .studentEmail(student.getUser().getEmail())
-                .studentBranch(student.getBranch())
-                .studentUniversity(student.getUniversity())
-                .studentCgpa(student.getCgpa())
-                .studentSkills(student.getSkills())
-                .jobId(job.getId())
-                .jobTitle(job.getTitle())
-                .companyName(job.getRecruiter().getCompanyName())
-                .jobLocation(job.getLocation())
-                .jobType(job.getJobType())
-                .minCgpaRequired(job.getMinCgpa())
+                .studentId(student != null ? student.getId() : null)
+                .studentName(student != null && student.getUser() != null ? student.getUser().getName() : null)
+                .studentEmail(student != null && student.getUser() != null ? student.getUser().getEmail() : null)
+                .studentBranch(student != null ? student.getBranch() : null)
+                .studentUniversity(student != null ? student.getUniversity() : null)
+                .studentCgpa(student != null ? student.getCgpa() : null)
+                .studentSkills(student != null ? student.getSkills() : null)
+                .jobId(job != null ? job.getId() : null)
+                .jobTitle(job != null ? job.getTitle() : null)
+                .companyName(job != null && job.getRecruiter() != null ? job.getRecruiter().getCompanyName() : null)
+                .jobLocation(job != null ? job.getLocation() : null)
+                .jobType(job != null ? job.getJobType() : null)
+                .minCgpaRequired(job != null ? job.getMinCgpa() : null)
                 .status(application.getStatus())
                 .coverLetter(application.getCoverLetter())
                 .resumeUrl(application.getResumeUrl())
                 .recruiterFeedback(application.getRecruiterFeedback())
+                .interviewTime(application.getInterviewTime())
+                .interviewLink(application.getInterviewLink())
+                .interviewRound(application.getInterviewRound())
                 .appliedAt(application.getAppliedAt())
                 .updatedAt(application.getUpdatedAt())
                 .build();
