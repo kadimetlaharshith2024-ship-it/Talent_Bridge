@@ -28,7 +28,6 @@ public class ApplicationService {
     private final JobRepository jobRepository;
     private final StudentRepository studentRepository;
     private final RecruiterRepository recruiterRepository;
-    private final EmailService emailService; // <-- Injected Email Service
 
     @Transactional
     public ApplicationResponse applyForJob(String studentEmail, Long jobId, ApplicationRequest request) {
@@ -130,31 +129,18 @@ public class ApplicationService {
             application.setInterviewTime(null);
             application.setInterviewLink(null);
             application.setInterviewRound(null);
-
-            Application saved = applicationRepository.save(application);
-            emailService.sendRejectionEmail(saved); // <-- Trigger Rejection Email
-            return mapToResponse(saved);
         }
         else if (request.getStatus() == ApplicationStatus.INTERVIEW_SCHEDULED) {
             application.setInterviewTime(request.getInterviewTime());
             application.setInterviewLink(request.getInterviewLink());
             application.setInterviewRound(request.getInterviewRound() != null ? request.getInterviewRound().trim() : "Technical Round 1");
             application.setRecruiterFeedback(request.getRecruiterFeedback());
-
-            Application saved = applicationRepository.save(application);
-            emailService.sendInterviewScheduledEmail(saved); // <-- Trigger Interview Email
-            return mapToResponse(saved);
-        }
-        else if (request.getStatus() == ApplicationStatus.SHORTLISTED) {
-            application.setRecruiterFeedback(request.getRecruiterFeedback());
-            Application saved = applicationRepository.save(application);
-            emailService.sendShortlistEmail(saved); // <-- Trigger Shortlist Email
-            return mapToResponse(saved);
         }
         else {
             application.setRecruiterFeedback(request.getRecruiterFeedback());
-            return mapToResponse(applicationRepository.save(application));
         }
+
+        return mapToResponse(applicationRepository.save(application));
     }
 
     private void validateRecruiterJobOwnership(String recruiterEmail, Long jobId) {
