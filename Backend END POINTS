@@ -1,0 +1,62 @@
+/api
+│
+├── /auth
+│   ├── POST   /register
+│   └── POST   /login
+│
+├── /student/profile
+│   ├── POST   /
+│   ├── GET    /me
+│   ├── PATCH  /me
+│   ├── PATCH  /me/resume
+│   ├── PATCH  /me/skills
+│   ├── PATCH  /me/contact
+│   ├── PATCH  /me/academics
+│   ├── PATCH  /me/links
+│   └── PATCH  /me/bio
+│
+├── /recruiter/profile
+│   ├── POST   /
+│   ├── GET    /me
+│   ├── PATCH  /me
+│   ├── PATCH  /me/company
+│   ├── PATCH  /me/contact
+│   ├── PATCH  /me/media
+│   └── PATCH  /me/about
+│
+├── /jobs
+│   ├── POST   /
+│   ├── GET    /my-jobs
+│   ├── GET    /feed
+│   ├── GET    /{id}/details
+│   ├── GET    /{id}
+│   ├── PUT    /{id}
+│   ├── PATCH  /{id}
+│   └── DELETE /{id}
+│
+├── /applications
+│   ├── POST   /apply/{jobId}
+│   ├── PUT    /withdraw/{applicationId}
+│   ├── GET    /my-applications
+│   ├── GET    /job/{jobId}
+│   └── PATCH  /{applicationId}/status
+│
+├── /resumes
+│   ├── POST   /upload
+│   ├── GET    /my-resumes
+│   ├── GET    /version/{versionNumber}
+│   ├── PATCH  /version/{versionNumber}/set-default
+│   ├── DELETE /version/{versionNumber}
+│   ├── GET    /student/{studentId}
+│   └── GET    /download/{resumeId}
+│
+└── /admin
+    ├── GET    /dashboard/stats
+    ├── GET    /users
+    ├── PATCH  /users/{userId}/role
+    ├── PATCH  /users/{userId}/access
+    ├── POST   /users/bulk-access
+    ├── GET    /recruiters
+    ├── PATCH  /recruiters/{recruiterId}/verify
+    ├── GET    /jobs
+    └── DELETE /jobs/{jobId}
