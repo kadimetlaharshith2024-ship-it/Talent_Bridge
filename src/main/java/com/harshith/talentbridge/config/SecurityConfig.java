@@ -45,27 +45,41 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Permit preflight OPTIONS globally
+                        // 1. Allow all preflight OPTIONS requests
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Public endpoints
-                        .requestMatchers("/api/auth/**", "/error").permitAll()
+                        // 2. Public auth & error endpoints
+                        .requestMatchers("/api/auth/**", "/error", "/favicon.ico").permitAll()
 
-                        // Role-based endpoints
-                        .requestMatchers("/api/student/**").hasAnyAuthority("STUDENT", "ROLE_STUDENT")
-                        .requestMatchers("/api/recruiter/**").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
+                        // 3. Student endpoints (profile, resumes, applications)
+                        .requestMatchers(
+                                "/api/student/**",
+                                "/api/resumes/**",
+                                "/api/applications/apply/**",
+                                "/api/applications/withdraw/**",
+                                "/api/applications/my-applications"
+                        ).hasAnyAuthority("STUDENT", "ROLE_STUDENT")
+
+                        // 4. Recruiter endpoints
+                        .requestMatchers(
+                                "/api/recruiter/**",
+                                "/api/applications/job/**",
+                                "/api/applications/*/status",
+                                "/api/jobs/my-jobs"
+                        ).hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
+
+                        // 5. Job management
                         .requestMatchers(HttpMethod.POST, "/api/jobs/**").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
                         .requestMatchers(HttpMethod.PUT, "/api/jobs/**").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
                         .requestMatchers(HttpMethod.PATCH, "/api/jobs/**").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
                         .requestMatchers(HttpMethod.DELETE, "/api/jobs/**").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
-                        .requestMatchers(HttpMethod.GET, "/api/jobs/my-jobs").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
-                        .requestMatchers("/api/applications/apply/**", "/api/applications/withdraw/**", "/api/applications/my-applications").hasAnyAuthority("STUDENT", "ROLE_STUDENT")
-                        .requestMatchers("/api/applications/job/**", "/api/applications/*/status").hasAnyAuthority("RECRUITER", "ROLE_RECRUITER")
+
+                        // 6. View Jobs (Any logged-in Student or Recruiter)
                         .requestMatchers(HttpMethod.GET, "/api/jobs/**").authenticated()
 
+                        // 7. Fallback for any other authenticated route
                         .anyRequest().authenticated()
                 )
-                // Put CorsFilter first, then JwtAuthenticationFilter
                 .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -81,6 +95,7 @@ public class SecurityConfig {
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
+        // Dynamic origin matching for local dev + all Vercel production and preview deploys
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:5173",
                 "http://localhost:3000",
